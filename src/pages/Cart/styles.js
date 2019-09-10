@@ -5,3 +5,7 @@ export const Container = styled.View`
   justify-content: center;
   align-items: center;
 `;
+
+export const Show = styled.Text`
+  color: #fff;
+`;
