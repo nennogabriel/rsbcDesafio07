@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList } from 'react-native-gesture-handler';
+import PropTypes from 'prop-types';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
 
 import api from '../../services/api';
 
@@ -16,7 +18,11 @@ import {
   AddButtonText,
 } from './styles';
 
-export default class Main extends Component {
+class Main extends Component {
+  static propTypes = {
+    dispatch: PropTypes.func.isRequired,
+  };
+
   state = {
     products: [],
   };
@@ -28,8 +34,12 @@ export default class Main extends Component {
     });
   }
 
-  handleAddProduct = () => {
-    return null;
+  handleAddProduct = product => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'ADD_TO_CART',
+      product,
+    });
   };
 
   renderProduct = ({ item }) => {
@@ -38,7 +48,7 @@ export default class Main extends Component {
         <ProductImage source={{ uri: item.image }} />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>R$ {item.price}</ProductPrice>
-        <AddButton onPress={() => this.handleAddProduct(item.id)}>
+        <AddButton onPress={() => this.handleAddProduct(item)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
             <ProductAmountText>{0}</ProductAmountText>
@@ -64,3 +74,5 @@ export default class Main extends Component {
     );
   }
 }
+
+export default connect()(Main);

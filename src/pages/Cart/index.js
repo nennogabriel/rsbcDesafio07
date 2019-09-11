@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { connect } from 'react-redux';
+
 import {
   Container,
   Products,
@@ -24,7 +26,7 @@ import {
 } from './styles';
 import * as color from '../../styles/color';
 
-export default class Cart extends Component {
+class Cart extends Component {
   state = {
     products: [],
   };
@@ -102,3 +104,5 @@ export default class Cart extends Component {
     );
   }
 }
+
+export default connect()(Cart);
