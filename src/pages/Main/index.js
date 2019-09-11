@@ -17,6 +17,7 @@ import {
   ProductAmountText,
   AddButtonText,
 } from './styles';
+import { formatPrice } from '../../util/format';
 
 class Main extends Component {
   static propTypes = {
@@ -29,8 +30,12 @@ class Main extends Component {
 
   async componentDidMount() {
     const response = await api.get('/products');
+    const data = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
     this.setState({
-      products: response.data,
+      products: data,
     });
   }
 
@@ -47,7 +52,7 @@ class Main extends Component {
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }} />
         <ProductTitle>{item.title}</ProductTitle>
-        <ProductPrice>R$ {item.price}</ProductPrice>
+        <ProductPrice>{item.priceFormatted}</ProductPrice>
         <AddButton onPress={() => this.handleAddProduct(item)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
