@@ -24,7 +24,7 @@ import { formatPrice } from '../../util/format';
 
 class Main extends Component {
   static propTypes = {
-    addToCart: PropTypes.func.isRequired,
+    addToCartRequest: PropTypes.func.isRequired,
     amount: PropTypes.shape({
       // the format should be:
       // product.id : amount
@@ -47,13 +47,13 @@ class Main extends Component {
   }
 
   renderProduct = ({ item }) => {
-    const { addToCart, amount } = this.props;
+    const { addToCartRequest, amount } = this.props;
     return (
       <Product key={item.id}>
         <ProductImage source={{ uri: item.image }} />
         <ProductTitle>{item.title}</ProductTitle>
         <ProductPrice>{item.priceFormatted}</ProductPrice>
-        <AddButton onPress={() => addToCart(item)}>
+        <AddButton onPress={() => addToCartRequest(item.id)}>
           <ProductAmount>
             <Icon name="add-shopping-cart" color="#FFF" size={20} />
             <ProductAmountText>{amount[item.id] || 0}</ProductAmountText>
