@@ -35,12 +35,12 @@ class Cart extends Component {
   static propTypes = {
     products: PropTypes.arrayOf(PropTypes.object).isRequired,
     removeFromCart: PropTypes.func.isRequired,
-    updateAmount: PropTypes.func.isRequired,
+    updateAmountRequest: PropTypes.func.isRequired,
     total: PropTypes.string.isRequired,
   };
 
   renderProduct = ({ item }) => {
-    const { removeFromCart, updateAmount } = this.props;
+    const { removeFromCart, updateAmountRequest } = this.props;
     return (
       <Product>
         <ProductInfo>
@@ -55,7 +55,7 @@ class Cart extends Component {
         </ProductInfo>
         <ProductControls>
           <ProductControlButton
-            onPress={() => updateAmount(item.id, item.amount - 1)}
+            onPress={() => updateAmountRequest(item.id, item.amount - 1)}
           >
             <Icon
               name="remove-circle-outline"
@@ -65,7 +65,7 @@ class Cart extends Component {
           </ProductControlButton>
           <ProductAmount value={String(item.amount)} />
           <ProductControlButton
-            onPress={() => updateAmount(item.id, item.amount + 1)}
+            onPress={() => updateAmountRequest(item.id, item.amount + 1)}
           >
             <Icon name="add-circle-outline" size={20} color={color.primary} />
           </ProductControlButton>
