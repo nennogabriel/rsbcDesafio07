@@ -1,4 +1,5 @@
 import { call, put, all, select, takeLatest } from 'redux-saga/effects';
+import { Alert } from 'react-native';
 import api from '../../../services/api';
 
 import {
@@ -36,7 +37,7 @@ function* updateAmount({ id, amount }) {
 
   if (amount > stockAmount) {
     console.tron.warn('Eba! acabou o estoque');
-    alert('Quantidade solicitada fora de estoque.');
+    Alert.alert('Quantidade solicitada fora de estoque.');
     yield put(updateAmountSuccess(id, stockAmount));
   } else {
     yield put(updateAmountSuccess(id, amount));
